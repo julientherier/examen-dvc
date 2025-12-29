@@ -1,7 +1,7 @@
 from pathlib import Path
+
 import pandas as pd
 from sklearn.model_selection import train_test_split
-
 
 RAW_DATA_PATH = Path("data/raw_data/clean_data.csv")
 OUTPUT_DIR = Path("data/processed_data")
@@ -15,9 +15,9 @@ def main():
     # Load dataset
     df = pd.read_csv(RAW_DATA_PATH)
 
-    # Split features and target
+    # Split features and target (drop date column)
     target = df[TARGET_COL]
-    feats = df.drop([TARGET_COL], axis=1)
+    feats = df.drop([TARGET_COL, "date"], axis=1)
 
     # Train / test split
     X_train, X_test, y_train, y_test = train_test_split(
