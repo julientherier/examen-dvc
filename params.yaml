@@ -4,3 +4,16 @@ split:
   target_col: silica_concentrate
   drop_columns:
     - date
+
+grid_search:
+  model_type: random_forest
+  cv: 5
+  scoring: neg_mean_squared_error
+  n_jobs: -1
+  random_state: 42
+
+  random_forest:
+    n_estimators: [200, 500]
+    max_depth: [null, 5, 10, 20]
+    min_samples_split: [2, 5, 10]
+    min_samples_leaf: [1, 2, 4]
