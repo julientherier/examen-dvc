@@ -1,30 +1,39 @@
 from pathlib import Path
-
 import pandas as pd
+import yaml
 from sklearn.model_selection import train_test_split
+
 
 RAW_DATA_PATH = Path("data/raw_data/clean_data.csv")
 OUTPUT_DIR = Path("data/processed_data")
-TARGET_COL = "silica_concentrate"
+PARAMS_PATH = Path("params.yaml")
 
 
 def main():
-    # Create output directory if it does not exist
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+    # Load parameters
+    with open(PARAMS_PATH, "r") as f:
+        params = yaml.safe_load(f)["split"]
+
+    test_size = params["test_size"]
+    random_state = params["random_state"]
+    target_col = params["target_col"]
+    drop_columns = params.get("drop_columns", [])
 
     # Load dataset
     df = pd.read_csv(RAW_DATA_PATH)
 
-    # Split features and target (drop date column)
-    target = df[TARGET_COL]
-    feats = df.drop([TARGET_COL, "date"], axis=1)
+    # Split features and target
+    target = df[target_col]
+    feats = df.drop([target_col] + drop_columns, axis=1)
 
     # Train / test split
     X_train, X_test, y_train, y_test = train_test_split(
         feats,
         target,
-        test_size=0.3,
-        random_state=42
+        test_size=test_size,
+        random_state=random_state
     )
 
     # Save datasets
