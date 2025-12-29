@@ -4,7 +4,7 @@ from sklearn.model_selection import train_test_split
 
 
 RAW_DATA_PATH = Path("data/raw_data/clean_data.csv")
-OUTPUT_DIR = Path("data/processed")
+OUTPUT_DIR = Path("data/processed_data")
 TARGET_COL = "silica_concentrate"
 
 
