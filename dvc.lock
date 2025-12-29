@@ -1,0 +1,37 @@
+schema: '2.0'
+stages:
+  split:
+    cmd: python src/data/data_split.py
+    deps:
+    - path: data/raw_data/clean_data.csv
+      hash: md5
+      md5: 617b56af2992376d5c3e91ad80823898
+      size: 333757
+    - path: src/data/data_split.py
+      hash: md5
+      md5: ca07931e4c71f0723e8d552647795cc8
+      size: 2293
+    params:
+      params.yaml:
+        split.drop_columns:
+        - date
+        split.random_state: 42
+        split.target_col: silica_concentrate
+        split.test_size: 0.3
+    outs:
+    - path: data/processed_data/X_test.csv
+      hash: md5
+      md5: 707de7ab5221df8365ee5c622414e388
+      size: 79148
+    - path: data/processed_data/X_train.csv
+      hash: md5
+      md5: 262dc7a9b32e262a3896db9b7cb632ef
+      size: 184057
+    - path: data/processed_data/y_test.csv
+      hash: md5
+      md5: 5b38d7f1d33d69d59474bfe27d9d039d
+      size: 9723
+    - path: data/processed_data/y_train.csv
+      hash: md5
+      md5: 8eeb47fac58928dc66f5992035227df4
+      size: 22759
